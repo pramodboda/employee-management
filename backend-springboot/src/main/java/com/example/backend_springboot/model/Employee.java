@@ -25,8 +25,6 @@ public class Employee {
     private String gender;
 
     // Getters and Setters
-
-    // Getters and Setters
     public Long getId() {
         return id;
     }

@@ -1,4 +1,5 @@
-package com.example.springboot_backend.repository;
+package com.example.backend_springboot.repository;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

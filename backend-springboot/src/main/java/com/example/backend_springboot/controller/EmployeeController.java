@@ -11,21 +11,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/employees")
+@RequestMapping("/api/v1/")
 public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping
+    // get all employees
+    @GetMapping("/employees")
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
-    @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
+    // create employees rest api
+    @PostMapping("/employees")
+    public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
+        if (employee.getEmailId() == null || employee.getEmailId().isEmpty()) {
+            return ResponseEntity.badRequest().body("Email ID is required");
+        }
+
+        // Proceed with saving the employee to the database
+        // Save the employee to the database
+//        employeeRepository.save(employee);
+        Employee savedEmployee = employeeRepository.save(employee);
+        System.out.println("Saved Employee: " + savedEmployee);
+
+        return ResponseEntity.ok("Employee created successfully");
+
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
