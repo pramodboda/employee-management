@@ -1,11 +1,22 @@
 # Employee Management
 
-Developed using tools:
+## Project Overview
+
+CRUD Features:
+
+- Create Employee
+- List Employee
+- Update Employee
+- Delete Employee
+- View Employee
+
+Required tools:
 
 - OS: macOS Catalina - v10.15.7
-- NVM: 0.40.1
+- NVM: v0.40.1
 - Node: v22.11.0
-- Angular CLI: 19.0.2
+- Angular CLI: v19.0.2
+- Spring Boot: 3.4.0
 
 ### Check whether 'nvm' is installed or not
 

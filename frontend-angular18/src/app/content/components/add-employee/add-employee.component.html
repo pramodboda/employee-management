@@ -1,0 +1,42 @@
+<h3>Create Employee</h3>
+
+<form (ngSubmit)="onSubmit(employeeForm)" #employeeForm="ngForm">
+  <div class="form-group">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" [(ngModel)]="employee.firstName" name="firstName" required minlength="2"
+      #firstName="ngModel">
+    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+      <div *ngIf="firstName.errors?.['required']">First Name is required.</div>
+      <div *ngIf="firstName.errors?.['minlength']">First Name must be at least 2 characters long.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" [(ngModel)]="employee.lastName" name="lastName" required minlength="2"
+      #lastName="ngModel">
+    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+      <div *ngIf="lastName.errors?.['required']">Last Name is required.</div>
+      <div *ngIf="lastName.errors?.['minlength']">Last Name must be at least 2 characters long.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="emailId">Email:</label>
+    <input type="email" id="emailId" [(ngModel)]="employee.emailId" name="emailId" required email #emailId="ngModel">
+    <div *ngIf="emailId.invalid && (emailId.dirty || emailId.touched)">
+      <div *ngIf="emailId.errors?.['required']">Email is required.</div>
+      <div *ngIf="emailId.errors?.['email']">Invalid email format.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="gender">Gender:</label>
+    <input type="text" id="gender" [(ngModel)]="employee.gender" name="gender" required #gender="ngModel">
+    <div *ngIf="gender.invalid && (gender.dirty || gender.touched)">
+      <div *ngIf="gender.errors?.['required']">Gender is required.</div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="employeeForm.invalid">Create Employee</button>
+</form>
