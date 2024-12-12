@@ -30,9 +30,9 @@ export class EmployeeService {
   createEmployee(employee: Employee): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, employee).pipe(
       tap((res: any) => {
-        const emp = res;
+        const createdEmp = res;
         this.successHandler.handleSuccess(
-          `Employee ${emp.employeeName} created successfully!`
+          `Employee ${createdEmp.employeeName} created successfully!`
         );
       }),
       catchError((error) => this.errorHandler.handleHttpError(error))
@@ -41,7 +41,7 @@ export class EmployeeService {
 
   updateEmployee(id: number, employee: Employee): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, employee).pipe(
-      tap((message: any) =>
+      tap((res: any) =>
         this.successHandler.handleSuccess(`Employee updated successfully!`)
       ),
       catchError((error) => this.errorHandler.handleHttpError(error))

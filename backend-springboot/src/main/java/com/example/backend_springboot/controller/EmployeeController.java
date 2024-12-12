@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -27,17 +28,19 @@ public class EmployeeController {
     @PostMapping("/employees")
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
         if (employee.getEmailId() == null || employee.getEmailId().isEmpty()) {
-            return ResponseEntity.badRequest().body("Email ID is required");
+            return ResponseEntity.badRequest().body(Map.of("message", "Email ID is required"));
         }
 
         // Proceed with saving the employee to the database
-        // Save the employee to the database
-//        employeeRepository.save(employee);
         Employee savedEmployee = employeeRepository.save(employee);
         System.out.println("Saved Employee: " + savedEmployee);
 
-        return ResponseEntity.ok("Employee created successfully");
-
+        // Return a JSON response with success message and employee details (optional)
+        return ResponseEntity.ok(Map.of(
+                "message", "Employee created successfully",
+                "employeeId", savedEmployee.getId(),
+                "employeeName", savedEmployee.getFirstName()
+        ));
     }
 
 
