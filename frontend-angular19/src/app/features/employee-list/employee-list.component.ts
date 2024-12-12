@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { EmployeeService } from '../../service/EmployeeService';
-import { Employee } from '../../model/Employee';
+import { Employee } from '../../core/models/Employee';
+import { EmployeeService } from '../../core/services/EmployeeService';
 
 @Component({
   selector: 'app-employee-list',

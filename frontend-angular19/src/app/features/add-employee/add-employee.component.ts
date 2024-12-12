@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Employee } from '../../model/Employee';
-import { EmployeeService } from '../../service/EmployeeService';
+import { Employee } from '../../core/models/Employee';
+import { EmployeeService } from '../../core/services/EmployeeService';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
