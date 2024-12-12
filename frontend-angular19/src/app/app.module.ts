@@ -7,6 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { MatDialogModule } from '@angular/material/dialog'; // import this
+import { MatButtonModule } from '@angular/material/button'; // import this for button styling
+import { MatIconModule } from '@angular/material/icon'; // Optional, for icons
+
 import { NotificationService } from './core/services/notification.service';
 @NgModule({
   imports: [
@@ -16,6 +21,9 @@ import { NotificationService } from './core/services/notification.service';
     CommonModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
     AppComponent, // Import the standalone component
   ],
   providers: [

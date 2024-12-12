@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialog } from '@angular/material/dialog';
 import { Employee } from '../../core/models/Employee';
-import { EmployeeService } from '../../core/services/employee.service';
+import { DeleteConfirmationDialogComponent } from '../../shared/components/delete-confirmation-dialog.component'; // import your dialog
+import { EmployeeService } from '../../core/services/employee.service'; // Your service for API calls
 
 @Component({
   selector: 'app-employee-list',
@@ -12,7 +13,22 @@ import { EmployeeService } from '../../core/services/employee.service';
 export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [];
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    private dialog: MatDialog,
+    private employeeService: EmployeeService
+  ) {}
+
+  openDeleteDialog(employeeId: number) {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      data: { id: employeeId },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteEmployee(employeeId);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getEmployees();
@@ -30,5 +46,13 @@ export class EmployeeListComponent implements OnInit {
 
   deleteEmployee(id: number) {
     // Call service to delete employee
+    this.employeeService.deleteEmployee(id).subscribe({
+      next: () => {
+        // Handle success - maybe reload the employee list or update UI
+      },
+      error: (err) => {
+        // Handle error
+      },
+    });
   }
 }
