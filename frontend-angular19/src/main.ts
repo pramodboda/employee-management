@@ -4,9 +4,10 @@ import { importProvidersFrom } from '@angular/core';
 import { AppRoutingModule } from './app/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(AppRoutingModule, HttpClientModule, FormsModule),
+    importProvidersFrom(AppRoutingModule, HttpClientModule, FormsModule), provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));

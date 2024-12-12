@@ -6,7 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NotificationService } from './core/services/notification.service';
 @NgModule({
   imports: [
     BrowserModule,
@@ -14,10 +15,12 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     FormsModule,
     CommonModule,
     HttpClientModule,
+    MatSnackBarModule,
     AppComponent, // Import the standalone component
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    NotificationService, // Register NotificationService
   ],
 })
 export class AppModule {}

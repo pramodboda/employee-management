@@ -11,8 +11,16 @@ export class NotificationService {
   // Function to display error messages using Snackbar
   showError(message: string): void {
     this.snackBar.open(message, 'Close', {
-      duration: 5000, // The snackbar will automatically close after 5 seconds
+      // duration: 5000, // The snackbar will automatically close after 5 seconds
       panelClass: ['error-snackbar'], // Optional: custom CSS class for styling
+    });
+  }
+
+  // Function to display success messages using Snackbar
+  showSuccess(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['success-snackbar'], // Optional: Custom styles
     });
   }
 }
