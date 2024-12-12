@@ -9,6 +9,8 @@ CRUD Features:
 - Update Employee
 - Delete Employee
 - View Employee
+- Form Validation
+- Error Handling
 
 Required tools:
 
