@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Employee } from '../../core/models/Employee';
-import { DeleteConfirmationDialogComponent } from '../../shared/components/delete-confirmation-dialog.component'; // import your dialog
+import { DeleteConfirmationDialogComponent } from '../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component'; // import your dialog
 import { EmployeeService } from '../../core/services/employee.service'; // Your service for API calls
 
 @Component({
@@ -20,7 +20,7 @@ export class EmployeeListComponent implements OnInit {
 
   openDeleteDialog(employeeId: number) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      data: { id: employeeId },
+      data: { employeeId },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
