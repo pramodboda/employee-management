@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +21,8 @@ import { EmployeeService } from '../../../core/services/employee.service';
 })
 export class DeleteConfirmationDialogComponent {
   errorMessage: string | null = null; // add a property to store error message
+  @Output() employeeDeleted = new EventEmitter<void>(); // Create the emitter
+
   constructor(
     public dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
     private employeeService: EmployeeService,
@@ -29,6 +37,7 @@ export class DeleteConfirmationDialogComponent {
     this.employeeService.deleteEmployee(this.data.employeeId).subscribe({
       next: () => {
         this.dialogRef.close();
+        this.employeeDeleted.emit(); // Emit the event when deletion is successful
       },
       error: (error) => {
         console.error('Error deleting employee:', error);
