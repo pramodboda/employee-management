@@ -19,6 +19,7 @@ Required tools:
 - Node: v22.11.0
 - Angular CLI: v19.0.2
 - Spring Boot: 3.4.0
+- Java: v17
 
 ### Check whether 'nvm' is installed or not
 

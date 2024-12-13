@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>backend-springboot</artifactId>
+	<artifactId>backend-springboot-employee-crud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>backend-springboot</name>
-	<description>Employee Management CRUD application using Angular 18.2, Spring Boot, and MySQL</description>
+	<name>backend-springboot-employee-crud</name>
+	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -40,6 +40,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
@@ -49,13 +55,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-inline</artifactId>
-			<version>4.10.0</version> <!-- Replace with your version -->
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -63,24 +62,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>properties</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

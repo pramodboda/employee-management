@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -6,13 +7,14 @@ import { EmployeeService } from '../../../core/services/employee.service';
 
 @Component({
   selector: 'app-delete-confirmation-dialog',
-  imports: [MatButtonModule, MatDialogModule],
+  imports: [MatButtonModule, MatDialogModule, CommonModule],
   templateUrl: './delete-confirmation-dialog.component.html',
   styleUrl: './delete-confirmation-dialog.component.scss',
 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteConfirmationDialogComponent {
+  errorMessage: string | null = null; // add a property to store error message
   constructor(
     public dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
     private employeeService: EmployeeService,
@@ -30,6 +32,8 @@ export class DeleteConfirmationDialogComponent {
       },
       error: (error) => {
         console.error('Error deleting employee:', error);
+        this.errorMessage =
+          'There was an error deleting the employee. Please try again later.'; // Display error message
       },
     });
   }

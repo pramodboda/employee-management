@@ -11,7 +11,7 @@
   </thead>
   <tbody>
 
-    @for(employee of employees; track employee.id){
+    <!-- @for(employee of employees; track employee.id){
     <tr>
       <th scope="row">{{employee.id}}</th>
       <td>{{employee.firstName}}</td>
@@ -20,11 +20,22 @@
       <td>{{employee.gender}}</td>
       <td>
         <button (click)="updateEmployee(employee.id)">Update</button>
-        <button (click)="openDeleteDialog(1002)">Delete</button>
+        <button (click)="openDeleteDialog(employee.id)">Delete {{employee.id}}</button>
       </td>
     </tr>
-    }
+    } -->
 
+    <tr *ngFor="let employee of employees; trackBy: trackById">
+      <th scope="row">{{ employee.id }}</th>
+      <td>{{ employee.firstName }}</td>
+      <td>{{ employee.lastName }}</td>
+      <td>{{ employee.emailId }}</td>
+      <td>{{ employee.gender }}</td>
+      <td>
+        <button (click)="updateEmployee(employee.id)">Update</button>
+        <button (click)="openDeleteDialog(employee.id)">Delete</button>
+      </td>
+    </tr>
 
   </tbody>
 </table>

@@ -21,7 +21,6 @@ import { NotificationService } from './core/services/notification.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    CommonModule,
     HttpClientModule,
     MatSnackBarModule,
     MatDialogModule,
