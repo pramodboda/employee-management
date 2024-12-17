@@ -6,6 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+// Import Angular Material modules
+
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import {
@@ -22,6 +24,7 @@ import { NotificationService } from './core/services/notification.service';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,

@@ -1,7 +1,64 @@
 <h2>Employee List</h2>
-<table>
+
+<!-- Employee Table -->
+<!-- Employee Table -->
+<mat-table [dataSource]="dataSource" matSort>
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let employee">{{ employee.id }}</td>
+  </ng-container>
+
+  <!-- First Name Column -->
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+    <td mat-cell *matCellDef="let employee">{{ employee.firstName }}</td>
+  </ng-container>
+
+  <!-- Last Name Column -->
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+    <td mat-cell *matCellDef="let employee">{{ employee.lastName }}</td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="emailId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+    <td mat-cell *matCellDef="let employee">{{ employee.emailId }}</td>
+  </ng-container>
+
+  <!-- Gender Column -->
+  <ng-container matColumnDef="gender">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+    <td mat-cell *matCellDef="let employee">{{ employee.gender }}</td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let employee">
+      <button mat-flat-button (click)="updateEmployee(employee.id)">Update</button>
+      <button mat-flat-button aria-label="Delete" (click)="openDeleteDialog(employee.id, employee.firstName)">
+        <mat-icon>delete</mat-icon>Delete
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>
+
+<!-- Pagination Controls -->
+<mat-paginator [length]="employees.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+</mat-paginator>
+
+
+<!-- <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Email</th>
@@ -10,21 +67,6 @@
     </tr>
   </thead>
   <tbody>
-
-    <!-- @for(employee of employees; track employee.id){
-    <tr>
-      <th scope="row">{{employee.id}}</th>
-      <td>{{employee.firstName}}</td>
-      <td>{{employee.lastName}}</td>
-      <td>{{employee.emailId}}</td>
-      <td>{{employee.gender}}</td>
-      <td>
-        <button (click)="updateEmployee(employee.id)">Update</button>
-        <button (click)="openDeleteDialog(employee.id)">Delete {{employee.id}}</button>
-      </td>
-    </tr>
-    } -->
-
     <tr *ngFor="let employee of employees; trackBy: trackById">
       <th scope="row">{{ employee.id }}</th>
       <td>{{ employee.firstName }}</td>
@@ -38,4 +80,4 @@
     </tr>
 
   </tbody>
-</table>
+</table> -->
