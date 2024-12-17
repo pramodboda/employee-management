@@ -26,7 +26,8 @@ export class DeleteConfirmationDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
     private employeeService: EmployeeService,
-    @Inject(MAT_DIALOG_DATA) public data: { employeeId: number }
+    @Inject(MAT_DIALOG_DATA)
+    public data: { employeeId: number; employeeFirstName: string }
   ) {}
 
   onCancel(): void {

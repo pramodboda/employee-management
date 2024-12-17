@@ -23,15 +23,14 @@ export class EmployeeListComponent implements OnInit {
     return employee.id; // Returns the unique identifier for each employee
   }
 
-  openDeleteDialog(employeeId: number) {
+  openDeleteDialog(employeeId: number, employeeFirstName: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      data: { employeeId },
+      data: { employeeId, employeeFirstName },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.deleteEmployee(employeeId);
-      }
+    // Listen for the employeeDeleted event and reload the employee list
+    dialogRef.componentInstance.employeeDeleted.subscribe(() => {
+      this.getEmployees(); // Reload the list of employees after successful deletion
     });
   }
 
@@ -47,22 +46,5 @@ export class EmployeeListComponent implements OnInit {
 
   updateEmployee(id: number) {
     // Navigate to update employee component
-  }
-
-  deleteEmployee(id: number) {
-    // Call service to delete employee
-    this.employeeService.deleteEmployee(id).subscribe({
-      next: () => {
-        // Handle success - maybe reload the employee list or update UI
-        // Remove the employee from the list after successful deletion
-        this.employees = this.employees.filter(
-          (employee) => employee.id !== id
-        );
-      },
-      error: (err) => {
-        // Handle error
-        console.error('Error deleting employee:', err);
-      },
-    });
   }
 }
