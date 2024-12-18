@@ -1,36 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Employee } from '../../core/models/Employee';
 import { CommonModule } from '@angular/common';
-import { DeleteConfirmationDialogComponent } from '../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component'; // import your dialog
-import { EmployeeService } from '../../core/services/employee.service'; // Your service for API calls
-
+import { DeleteConfirmationDialogComponent } from '../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { EmployeeService } from '../../core/services/employee.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator'; // Import MatPaginator
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-employee-list',
   imports: [
     CommonModule,
     MatTableModule,
-    MatPaginatorModule,
+    MatPaginator,
     MatSortModule,
     MatButtonModule,
     MatIconModule,
   ],
   templateUrl: './employee-list.component.html',
-  styleUrl: './employee-list.component.scss',
+  styleUrls: ['./employee-list.component.scss'],
 })
 export class EmployeeListComponent implements OnInit {
-  errorMessage: string | null = null; // add a property to store error message
+  @ViewChild(MatPaginator) paginator!: MatPaginator; // Reference to paginator
+
+  errorMessage: string | null = null;
   employees: Employee[] = [];
-  loading: boolean = false; // To indicate loading state
+  loading: boolean = false;
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>(
     []
-  ); // DataSource for the table
+  );
   displayedColumns: string[] = [
     'id',
     'firstName',
@@ -38,39 +40,23 @@ export class EmployeeListComponent implements OnInit {
     'emailId',
     'gender',
     'actions',
-  ]; // Define columns to display in the table
-  pageSize: number = 5; // Define page size for pagination
+  ];
+  pageSize: number = 10; // Default page size
 
   constructor(
     private dialog: MatDialog,
     private employeeService: EmployeeService
   ) {}
 
-  // TrackBy function for performance optimization
-  trackById(index: number, employee: Employee): number {
-    return employee.id; // Returns the unique identifier for each employee
+  ngOnInit(): void {
+    this.getEmployees();
   }
 
-  // Pagination change event
+  // This function is called when the paginator page is changed
   onPageChange(event: any): void {
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = startIndex + event.pageSize;
-    this.dataSource.data = this.employees.slice(startIndex, endIndex); // Update table data on page change
-  }
-
-  openDeleteDialog(employeeId: number, employeeFirstName: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      data: { employeeId, employeeFirstName },
-    });
-
-    // Listen for the employeeDeleted event and reload the employee list
-    dialogRef.componentInstance.employeeDeleted.subscribe(() => {
-      this.getEmployees(); // Reload the list of employees after successful deletion
-    });
-  }
-
-  ngOnInit(): void {
-    this.getEmployees();
+    this.dataSource.data = this.employees.slice(startIndex, endIndex);
   }
 
   getEmployees() {
@@ -78,18 +64,33 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.getEmployeesList().subscribe(
       (data) => {
         this.employees = data;
-        this.dataSource.data = this.employees.slice(0, this.pageSize); // Assign the data to MatTableDataSource
+        this.dataSource.data = this.employees.slice(0, this.pageSize); // Set the initial data for the table
         this.loading = false;
+
+        // Update the paginator after data is loaded
+        if (this.paginator) {
+          this.paginator.pageIndex = 0; // Reset to the first page
+        }
       },
       (error) => {
         this.loading = false;
-        this.errorMessage = 'Error loading employees. Please try again.'; // Display error message
+        this.errorMessage = 'Error loading employees. Please try again.';
       }
     );
   }
 
+  // This function handles opening the delete confirmation dialog
+  openDeleteDialog(employeeId: number, employeeFirstName: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      data: { employeeId, employeeFirstName },
+    });
+
+    dialogRef.componentInstance.employeeDeleted.subscribe(() => {
+      this.getEmployees();
+    });
+  }
+
   updateEmployee(id: number) {
-    // Navigate to update employee component
     console.log('Update employee', id);
   }
 }

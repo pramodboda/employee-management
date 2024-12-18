@@ -2,8 +2,8 @@
 
 <!-- Employee Table -->
 <!-- Employee Table -->
-<mat-table [dataSource]="dataSource" matSort>
-
+<!-- <mat-table [dataSource]="dataSource" matSort> -->
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <!-- ID Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -38,9 +38,16 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let employee">
-      <button mat-flat-button (click)="updateEmployee(employee.id)">Update</button>
-      <button mat-flat-button aria-label="Delete" (click)="openDeleteDialog(employee.id, employee.firstName)">
-        <mat-icon>delete</mat-icon>Delete
+      <button mat-icon-button aria-label="Edit" (click)="updateEmployee(employee.id)">
+        <span class="material-icons-outlined">
+          drive_file_rename_outline
+        </span>
+      </button>
+      <button mat-icon-button aria-label="Delete" (click)="openDeleteDialog(employee.id, employee.firstName)">
+        <!-- <mat-icon>delete</mat-icon> -->
+        <span class="material-icons-outlined">
+          delete
+        </span>
       </button>
     </td>
   </ng-container>
@@ -48,10 +55,16 @@
   <!-- Header and Row Definitions -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</mat-table>
+</table>
+<!-- </mat-table> -->
 
 <!-- Pagination Controls -->
-<mat-paginator [length]="employees.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+<!-- <mat-paginator [length]="employees.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+</mat-paginator> -->
+
+<!-- Pagination control -->
+<mat-paginator #paginator [length]="employees.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+  aria-label="Select page" (page)="onPageChange($event)">
 </mat-paginator>
 
 
