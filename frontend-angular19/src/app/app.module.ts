@@ -1,6 +1,7 @@
 import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -18,26 +19,27 @@ import { MatButtonModule } from '@angular/material/button'; // import this for b
 import { MatIconModule } from '@angular/material/icon'; // Optional, for icons
 
 import { NotificationService } from './core/services/notification.service';
+
 @NgModule({
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-
-    MatSnackBarModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    AppComponent, // Import the standalone component
+    // BrowserModule,
+    // BrowserAnimationsModule,
+    // AppRoutingModule,
+    // FormsModule,
+    // HttpClientModule,
+    // MatSnackBarModule,
+    // MatDialogModule,
+    // MatButtonModule,
+    // MatIconModule,
+    // AppComponent, // Import the standalone component
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
-    NotificationService, // Register NotificationService,
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    // NotificationService, // Register NotificationService,
   ],
 })
 export class AppModule {}
 
 // Bootstrap the application
-bootstrapApplication(AppComponent);
+// bootstrapApplication(AppComponent);
