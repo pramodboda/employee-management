@@ -86,7 +86,20 @@ export class EmployeeListComponent implements OnInit {
     });
 
     dialogRef.componentInstance.employeeDeleted.subscribe(() => {
-      this.getEmployees();
+      // Filter out the deleted employee
+      this.employees = this.employees.filter((emp) => emp.id !== employeeId);
+
+      // Update the dataSource based on current paginator state
+      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      const endIndex = startIndex + this.paginator.pageSize;
+
+      // Adjust the data source to show the updated rows for the current page
+      this.dataSource.data = this.employees.slice(startIndex, endIndex);
+
+      // Check if the current page is now empty after deletion
+      if (this.dataSource.data.length === 0 && this.paginator.pageIndex > 0) {
+        this.paginator.previousPage(); // Move to the previous page if current page is empty
+      }
     });
   }
 
