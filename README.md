@@ -218,7 +218,7 @@ deleteEmployee(id: number): Observable<Object> {
 return this.http.delete(`${this.baseUrl}/${id}`);
 }
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Create Employee Model:
 TypeScript
 
