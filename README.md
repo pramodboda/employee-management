@@ -2,7 +2,7 @@
 
 ## Technnologies
 
-[![](https://skillicons.dev/icons?i=js,html,css,js,materialui&) ![](https://skillicons.dev/icons?i=java,springboot,postman,git,github&)](https://skillicons.dev)
+[![](https://skillicons.dev/icons?i=js,html,css,js,angular,materialui&) ![](https://skillicons.dev/icons?i=java,spring,postman,git,github&)](https://skillicons.dev)
 
 ## Project Overview
 
