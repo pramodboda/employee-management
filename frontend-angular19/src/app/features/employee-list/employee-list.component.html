@@ -36,7 +36,20 @@
   <ng-container matColumnDef="emailId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
     <td mat-cell *matCellDef="let employee">
-      <input *ngIf="employee.editMode" [(ngModel)]="employee.emailId" matInput placeholder="Email" />
+      <!-- <input *ngIf="employee.editMode" [(ngModel)]="employee.emailId" matInput placeholder="Email" /> -->
+
+      <mat-form-field class="example-full-width" *ngIf="employee.editMode">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+          placeholder="Ex. pat@example.com" [(ngModel)]="employee.emailId">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+        }
+        @if (emailFormControl.hasError('required')) {
+        <mat-error>Email is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
 
 
       <span *ngIf="!employee.editMode">{{ employee.emailId }}</span>

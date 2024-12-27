@@ -6,6 +6,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
+import {MatButtonModule} from '@angular/material/button';
+
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -18,6 +20,7 @@ import { RouterOutlet } from '@angular/router';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
