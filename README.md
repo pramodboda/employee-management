@@ -4,10 +4,10 @@
 
 CRUD Features:
 
-- Create Employee
-- List Employee
-- Update Employee
-- Delete Employee
+- C - Create Employee
+- R - List Employee
+- U - Update Employee
+- D - Delete Employee
 - View Employee
 - Form Validation
 - Error Handling
