@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Employee } from '../../core/models/Employee';
 import { CommonModule } from '@angular/common';
@@ -10,6 +11,13 @@ import { MatPaginator } from '@angular/material/paginator'; // Import MatPaginat
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
+interface GenderOptions {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-employee-list',
@@ -20,6 +28,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatSortModule,
     MatButtonModule,
     MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
   ],
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.scss'],
@@ -41,6 +52,13 @@ export class EmployeeListComponent implements OnInit {
     'gender',
     'actions',
   ];
+
+  genderOptions: GenderOptions[] = [
+    { value: 'male', viewValue: 'Male' },
+    { value: 'female', viewValue: 'Female' },
+    { value: 'other', viewValue: 'Other' },
+  ];
+
   pageSize: number = 10; // Default page size
 
   constructor(
@@ -77,6 +95,18 @@ export class EmployeeListComponent implements OnInit {
         this.errorMessage = 'Error loading employees. Please try again.';
       }
     );
+  }
+
+  // Enable edit mode for a given employee
+  editEmployee(employee: any) {
+    employee.editMode = true;
+  }
+
+  // Save the updated employee details
+  saveEmployee(employee: any) {
+    employee.editMode = false;
+    // Call API or update your employee service to save the updated data
+    console.log('Updated Employee:', employee);
   }
 
   // This function handles opening the delete confirmation dialog

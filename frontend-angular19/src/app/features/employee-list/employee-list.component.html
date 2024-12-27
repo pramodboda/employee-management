@@ -1,9 +1,7 @@
 <h2>Employee List</h2>
-
 <!-- Employee Table -->
-<!-- Employee Table -->
-<!-- <mat-table [dataSource]="dataSource" matSort> -->
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
   <!-- ID Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -13,41 +11,73 @@
   <!-- First Name Column -->
   <ng-container matColumnDef="firstName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-    <td mat-cell *matCellDef="let employee">{{ employee.firstName }}</td>
+    <td mat-cell *matCellDef="let employee">
+      <mat-form-field *ngIf="employee.editMode">
+        <input matInput placeholder="First name" [(ngModel)]="employee.firstName">
+      </mat-form-field>
+
+      <span *ngIf="!employee.editMode">{{ employee.firstName }}</span>
+    </td>
   </ng-container>
 
   <!-- Last Name Column -->
   <ng-container matColumnDef="lastName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-    <td mat-cell *matCellDef="let employee">{{ employee.lastName }}</td>
+    <td mat-cell *matCellDef="let employee">
+      <!-- <input *ngIf="employee.editMode" [(ngModel)]="employee.lastName" matInput placeholder="Last Name" /> -->
+      <mat-form-field *ngIf="employee.editMode">
+        <input matInput placeholder="Last name" [(ngModel)]="employee.lastName">
+      </mat-form-field>
+
+      <span *ngIf="!employee.editMode">{{ employee.lastName }}</span>
+    </td>
   </ng-container>
 
   <!-- Email Column -->
   <ng-container matColumnDef="emailId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-    <td mat-cell *matCellDef="let employee">{{ employee.emailId }}</td>
+    <td mat-cell *matCellDef="let employee">
+      <input *ngIf="employee.editMode" [(ngModel)]="employee.emailId" matInput placeholder="Email" />
+
+
+      <span *ngIf="!employee.editMode">{{ employee.emailId }}</span>
+    </td>
   </ng-container>
 
   <!-- Gender Column -->
   <ng-container matColumnDef="gender">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
-    <td mat-cell *matCellDef="let employee">{{ employee.gender }}</td>
+    <td mat-cell *matCellDef="let employee">
+      <!-- <select *ngIf="employee.editMode" [(ngModel)]="employee.gender" matSelect>
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+        <mat-option value="Other">Other</mat-option>
+      </select> -->
+
+      <mat-form-field *ngIf="employee.editMode">
+        <mat-label>Select gender</mat-label>
+        <mat-select>
+          @for (genderOption of genderOptions; track genderOption) {
+          <mat-option [value]="genderOption.value">{{genderOption.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <span *ngIf="!employee.editMode">{{ employee.gender }}</span>
+    </td>
   </ng-container>
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let employee">
-      <button mat-icon-button aria-label="Edit" (click)="updateEmployee(employee.id)">
-        <span class="material-icons-outlined">
-          drive_file_rename_outline
-        </span>
+      <button *ngIf="!employee.editMode" mat-icon-button (click)="editEmployee(employee)">
+        <span class="material-icons-outlined">edit</span>
       </button>
-      <button mat-icon-button aria-label="Delete" (click)="openDeleteDialog(employee.id, employee.firstName)">
-        <!-- <mat-icon>delete</mat-icon> -->
-        <span class="material-icons-outlined">
-          delete
-        </span>
+      <button *ngIf="employee.editMode" mat-icon-button (click)="saveEmployee(employee)">
+        <span class="material-icons-outlined">save</span>
+      </button>
+      <button mat-icon-button (click)="openDeleteDialog(employee.id, employee.firstName)">
+        <span class="material-icons-outlined">delete</span>
       </button>
     </td>
   </ng-container>
@@ -56,41 +86,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<!-- </mat-table> -->
 
 <!-- Pagination Controls -->
-<!-- <mat-paginator [length]="employees.length" [pageSize]="pageSize" (page)="onPageChange($event)">
-</mat-paginator> -->
-
-<!-- Pagination control -->
 <mat-paginator #paginator [length]="employees.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
   aria-label="Select page" (page)="onPageChange($event)">
 </mat-paginator>
-
-
-<!-- <table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Gender</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let employee of employees; trackBy: trackById">
-      <th scope="row">{{ employee.id }}</th>
-      <td>{{ employee.firstName }}</td>
-      <td>{{ employee.lastName }}</td>
-      <td>{{ employee.emailId }}</td>
-      <td>{{ employee.gender }}</td>
-      <td>
-        <button (click)="updateEmployee(employee.id)">Update</button>
-        <button (click)="openDeleteDialog(employee.id, employee.firstName)">Delete</button>
-      </td>
-    </tr>
-
-  </tbody>
-</table> -->
