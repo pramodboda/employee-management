@@ -18,6 +18,10 @@ table {
   background: #faf9fd;
 }
 
+.mat-mdc-row {
+  height: auto;
+}
+
 .mat-mdc-cell {
   // padding: 10px;
   color: #333;
@@ -76,4 +80,29 @@ table {
 
 .material-icons-outlined {
   color: #9e9e9e;
+}
+
+// form-input styles
+.small-input {
+  font-size: 12px; /* Adjust font size */
+  padding: 0 4px; /* Adjust padding */
+  height: 3.5rem;
+}
+.small-input.mat-mdc-form-field {
+  width: 100%;
+}
+
+::ng-deep .small-input .mat-mdc-form-field-infix {
+  padding: 0; /* Reduce padding */
+}
+
+::ng-deep .small-input .mat-mdc-input-element {
+  font-size: 12px !important; /* Smaller text */
+  height: 24px !important; /* Smaller height */
+  padding: 0; /* Adjust padding */
+}
+
+::ng-deep .small-input .mat-mdc-form-field {
+  min-width: 100px !important; /* Control the width */
+  font-size: 12px !important; /* Smaller font size for labels and inputs */
 }

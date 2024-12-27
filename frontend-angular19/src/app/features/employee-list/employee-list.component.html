@@ -12,10 +12,9 @@
   <ng-container matColumnDef="firstName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
     <td mat-cell *matCellDef="let employee">
-      <mat-form-field *ngIf="employee.editMode">
+      <mat-form-field *ngIf="employee.editMode" class="small-input" appearance="fill" dense>
         <input matInput placeholder="First name" [(ngModel)]="employee.firstName">
       </mat-form-field>
-
       <span *ngIf="!employee.editMode">{{ employee.firstName }}</span>
     </td>
   </ng-container>
