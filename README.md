@@ -11,7 +11,7 @@
 CRUD Features:
 
 - C - Create Employee
-- R - Read List of Employee
+- R - Read List of Employees
 - U - Update Employee
 - D - Delete Employee
 - View Employee
