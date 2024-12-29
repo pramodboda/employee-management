@@ -39,11 +39,15 @@ export class EmployeeService {
     );
   }
 
-  updateEmployee(id: number, employee: Employee): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, employee).pipe(
-      tap((res: any) =>
-        this.successHandler.handleSuccess(`Employee updated successfully!`)
-      ),
+  updateEmployee(id: number, employee: Employee): Observable<Employee> {
+    return this.http.put<Employee>(`${this.baseUrl}/${id}`, employee).pipe(
+      tap((res: Employee) => {
+        const updatedEmp = res;
+        console.log('updatedEmpupdatedEmp', updatedEmp);
+        this.successHandler.handleSuccess(
+          `Employee ${updatedEmp.firstName} details are updated successfully!`
+        );
+      }),
       catchError((error) => this.errorHandler.handleHttpError(error))
     );
   }

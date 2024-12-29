@@ -141,10 +141,46 @@ export class EmployeeListComponent implements OnInit {
   }
 
   // Save the updated employee details
-  saveEmployee(employee: any) {
-    employee.editMode = false;
-    // Call API or update your employee service to save the updated data
-    console.log('Updated Employee:', employee);
+  updateEmployeeSave(employee: any) {
+    // // Call API or update your employee service to save the updated data
+    // console.log('Updated Employee:', employee);
+
+    // Update employee data in the database
+    this.loading = true;
+
+    // Call the updateEmployee method from the service
+    this.employeeService.updateEmployee(employee.id, employee).subscribe(
+      (updatedEmployee) => {
+        // If the update is successful, update the local employee list
+        const index = this.employees.findIndex(
+          (emp) => emp.id === updatedEmployee.id
+        );
+        if (index !== -1) {
+          this.employees[index] = updatedEmployee; // Update the employee data
+          this.dataSource.data = [...this.employees]; // Refresh the data source
+        }
+
+        // Disable edit mode
+        employee.editMode = false;
+        this.loading = false;
+
+        // Update the dataSource based on current paginator state
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        const endIndex = startIndex + this.paginator.pageSize;
+
+        // Adjust the data source to show the updated rows for the current page
+        this.dataSource.data = this.employees.slice(startIndex, endIndex);
+
+        // Check if the current page is now empty after deletion
+        if (this.dataSource.data.length === 0 && this.paginator.pageIndex > 0) {
+          this.paginator.previousPage(); // Move to the previous page if current page is empty
+        }
+      },
+      (error) => {
+        this.loading = false;
+        this.errorMessage = 'Error saving employee. Please try again.';
+      }
+    );
   }
 
   // This function handles opening the delete confirmation dialog

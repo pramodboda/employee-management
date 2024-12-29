@@ -81,7 +81,7 @@
       <button *ngIf="!employee.editMode" mat-icon-button (click)="editEmployee(employee)">
         <span class="material-icons-outlined">edit</span>
       </button>
-      <button *ngIf="employee.editMode" mat-icon-button (click)="saveEmployee(employee)">
+      <button *ngIf="employee.editMode" mat-icon-button (click)="updateEmployeeSave(employee)">
         <span class="material-icons-outlined">save</span>
       </button>
       <button *ngIf="employee.editMode" mat-icon-button (click)="cancelEditEmployee(employee)">
