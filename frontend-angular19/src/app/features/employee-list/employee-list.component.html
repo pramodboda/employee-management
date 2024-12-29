@@ -57,26 +57,22 @@
   </ng-container>
 
   <!-- Gender Column -->
+  <!-- Gender Column -->
   <ng-container matColumnDef="gender">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
     <td mat-cell *matCellDef="let employee">
-      <!-- <select *ngIf="employee.editMode" [(ngModel)]="employee.gender" matSelect>
-        <mat-option value="Male">Male</mat-option>
-        <mat-option value="Female">Female</mat-option>
-        <mat-option value="Other">Other</mat-option>
-      </select> -->
-
       <mat-form-field *ngIf="employee.editMode">
         <mat-label>Select gender</mat-label>
-        <mat-select>
-          @for (genderOption of genderOptions; track genderOption) {
-          <mat-option [value]="genderOption.value">{{genderOption.viewValue}}</mat-option>
-          }
+        <mat-select [(ngModel)]="employee.gender">
+          <mat-option *ngFor="let genderOption of genderOptions" [value]="genderOption.value">
+            {{ genderOption.viewValue }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <span *ngIf="!employee.editMode">{{ employee.gender }}</span>
     </td>
   </ng-container>
+
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
@@ -88,7 +84,10 @@
       <button *ngIf="employee.editMode" mat-icon-button (click)="saveEmployee(employee)">
         <span class="material-icons-outlined">save</span>
       </button>
-      <button mat-icon-button (click)="openDeleteDialog(employee.id, employee.firstName)">
+      <button *ngIf="employee.editMode" mat-icon-button (click)="cancelEditEmployee(employee)">
+        <span class="material-icons-outlined">close</span>
+      </button>
+      <button *ngIf="!employee.editMode" mat-icon-button (click)="openDeleteDialog(employee.id, employee.firstName)">
         <span class="material-icons-outlined">delete</span>
       </button>
     </td>

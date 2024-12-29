@@ -88,9 +88,9 @@ export class EmployeeListComponent implements OnInit {
   ];
 
   genderOptions: GenderOptions[] = [
-    { value: 'male', viewValue: 'Male' },
-    { value: 'female', viewValue: 'Female' },
-    { value: 'other', viewValue: 'Other' },
+    { value: 'Male', viewValue: 'Male' },
+    { value: 'Female', viewValue: 'Female' },
+    { value: 'Other', viewValue: 'Other' },
   ];
 
   pageSize: number = 10; // Default page size
@@ -134,6 +134,10 @@ export class EmployeeListComponent implements OnInit {
   // Enable edit mode for a given employee
   editEmployee(employee: any) {
     employee.editMode = true;
+  }
+
+  cancelEditEmployee(employee: any) {
+    employee.editMode = false;
   }
 
   // Save the updated employee details
