@@ -84,21 +84,25 @@ table {
 
 // form-input styles
 .small-input {
-  font-size: 12px; /* Adjust font size */
-  padding: 0 4px; /* Adjust padding */
-  height: 3.5rem;
+  margin-top: 6px;
+  padding: 0; /* Adjust padding */
+  height: 3.8rem;
 }
+.small-input .mat-mdc-select,
+.mat-mdc-option {
+  font-size: 14px !important;
+}
+
 .small-input.mat-mdc-form-field {
-  width: 100%;
+  width: 90%;
 }
 
 ::ng-deep .small-input .mat-mdc-form-field-infix {
-  padding: 0; /* Reduce padding */
+  padding-top: 7px !important; /* Reduce padding */
 }
-
 ::ng-deep .small-input .mat-mdc-input-element {
-  font-size: 12px !important; /* Smaller text */
-  height: 24px !important; /* Smaller height */
+  font-size: 14px !important; /* Smaller text */
+  height: 26px !important; /* Smaller height */
   padding: 0; /* Adjust padding */
 }
 
