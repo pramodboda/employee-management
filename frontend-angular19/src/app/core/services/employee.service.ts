@@ -6,11 +6,14 @@ import { Employee } from '../models/Employee';
 import { ErrorHandlerService } from './error-handler.service';
 import { SuccessHandlerService } from './success-handler.service';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  private baseUrl = 'http://localhost:8080/api/v1/employees';
+  // private baseUrl = 'http://localhost:8080/api/v1/employees';
+  private baseUrl = environment.apiUrl; // Access the apiUrl from environment
 
   constructor(
     private http: HttpClient,
