@@ -47,7 +47,7 @@ build/
 /bazel-out
 
 # Node
-/node_modules
+/frontend-angular19/node_modules
 npm-debug.log
 yarn-error.log
 
