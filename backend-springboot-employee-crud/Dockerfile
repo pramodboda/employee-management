@@ -1,40 +1,18 @@
-# # Use an official OpenJDK runtime as a parent image
-# FROM openjdk:21-jdk
-#
-# # Set the working directory in the container
+# # Build stage
+# FROM maven:3.9.2-openjdk:17-jdk AS build
 # WORKDIR /app
+# COPY pom.xml .
+# COPY src ./src
+# RUN mvn clean package -DskipTests
 #
-# VOLUME /tmp
-#
-# # Copy the project files to the container
-# COPY target/backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar .
-#
-# # Package the application
-# # RUN ./mvnw package
-# # RUN ./mvnw clean package -DskipTests
-#
-# # Expose the port the app runs on
-# EXPOSE 8080
-#
-# # Run the application
-# CMD ["java", "-jar", "/backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar"]
-
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the project files to the container
-COPY . .
-
-# Package the application
-RUN ./mvnw package
-
-# Expose the port the app runs on
-EXPOSE 8080
-
-# Run the application
-CMD ["java", "-jar", "target/backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar"]
+# # Runtime stage
+# FROM openjdk:17-jdk
+# WORKDIR /app
+# COPY --from=build /app/target/backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar .
+# ENTRYPOINT ["java", "-jar", "backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar"]
 
 
+FROM eclipse-temurin:17-jdk
+ARG JAR_FILE=target/backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
