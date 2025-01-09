@@ -1,18 +1,35 @@
-# # Build stage
-# FROM maven:3.9.2-openjdk:17-jdk AS build
-# WORKDIR /app
-# COPY pom.xml .
-# COPY src ./src
-# RUN mvn clean package -DskipTests
-#
-# # Runtime stage
-# FROM openjdk:17-jdk
-# WORKDIR /app
-# COPY --from=build /app/target/backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar .
-# ENTRYPOINT ["java", "-jar", "backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar"]
+# Use a Java 23 JDK image to build the Spring Boot app
+FROM eclipse-temurin:23-jdk AS build
 
+# Set the working directory
+WORKDIR /app
 
-FROM eclipse-temurin:17-jdk
-ARG JAR_FILE=target/backend-springboot-employee-crud-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Copy the Maven wrapper and pom.xml
+COPY mvnw ./
+COPY .mvn/ .mvn/
+
+# Ensure the Maven wrapper is executable
+RUN chmod +x mvnw
+
+# Copy the pom.xml and install dependencies
+COPY pom.xml ./
+RUN ./mvnw dependency:go-offline
+
+# Copy the source code and build the application
+COPY src ./src
+RUN ./mvnw clean package -DskipTests
+
+# Use a Java 23 runtime image to run the application
+FROM eclipse-temurin:23-jre
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the built JAR file from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose port 8080
+EXPOSE 8080
+
+# Specify the command to run the application
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
